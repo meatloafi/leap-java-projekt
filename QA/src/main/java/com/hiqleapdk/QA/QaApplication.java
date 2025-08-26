@@ -1,4 +1,4 @@
-package com.hiqleapdk.QA;
+package com.hiqLeapdk.QA;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
