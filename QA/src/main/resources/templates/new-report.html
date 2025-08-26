@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Quality Report</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Create New Quality Report</h1>
+    
+    <form action="#" th:action="@{/save}" th:object="${report}" method="post">
+        
+        <fieldset>
+            <legend>Basic Information</legend>
+            <label for="customer">Customer:</label><br>
+            <input type="text" id="customer" th:field="*{customer}" required /><br><br>
+
+            <label for="consultant">Consultant:</label><br>
+            <input type="text" id="consultant" th:field="*{consultant}" required /><br><br>
+
+            <label for="seller">Seller:</label><br>
+            <input type="text" id="seller" th:field="*{seller}" /><br><br>
+
+            <label for="reportDate">Report Date:</label><br>
+            <input type="date" id="reportDate" th:field="*{reportDate}" required /><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Feedback</legend>
+            <label for="result">Result:</label><br>
+            <textarea id="result" rows="3" cols="50" th:field="*{result}"></textarea><br><br>
+
+            <label for="responsibility">Responsibility:</label><br>
+            <textarea id="responsibility" rows="3" cols="50" th:field="*{responsibility}"></textarea><br><br>
+            
+            <label for="initiative">Initiative:</label><br>
+            <textarea id="initiative" rows="3" cols="50" th:field="*{initiative}"></textarea><br><br>
+
+            <label for="punctuality">Punctuality:</label><br>
+            <textarea id="punctuality" rows="3" cols="50" th:field="*{punctuality}"></textarea><br><br>
+            
+            <label for="reliability">Reliability:</label><br>
+            <textarea id="reliability" rows="3" cols="50" th:field="*{reliability}"></textarea><br><br>
+
+            <label for="technicalKnowledge">Technical Knowledge:</label><br>
+            <textarea id="technicalKnowledge" rows="3" cols="50" th:field="*{technicalKnowledge}"></textarea><br><br>
+
+            <label for="functionalKnowledge">Functional Knowledge:</label><br>
+            <textarea id="functionalKnowledge" rows="3" cols="50" th:field="*{functionalKnowledge}"></textarea><br><br>
+            
+            <label for="followUp">Follow-up:</label><br>
+            <textarea id="followUp" rows="3" cols="50" th:field="*{followUp}"></textarea><br><br>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Overall Score</legend>
+            <label for="satisfactionRating">Satisfaction Rating (1-10):</label><br>
+            <input type="number" id="satisfactionRating" min="1" max="10" th:field="*{satisfactionRating}" required /><br><br>
+        </fieldset>
+
+        <button type="submit">Save Report</button>
+    </form>
+</body>
+</html>

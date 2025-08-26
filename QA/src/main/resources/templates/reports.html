@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Quality Reports</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>All Quality Reports</h1>
+    
+    <a href="/new">Create a New Report</a>
+    <br/><br/>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Report Date</th>
+                <th>Customer</th>
+                <th>Consultant</th>
+                <th>Satisfaction Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${reports.isEmpty()}">
+                <td colspan="4">No reports found.</td>
+            </tr>
+            <tr th:each="report : ${reports}">
+                <td th:text="${report.reportDate}">2025-08-26</td>
+                <td th:text="${report.customer}">Customer Name</td>
+                <td th:text="${report.consultant}">Consultant Name</td>
+                <td th:text="${report.satisfactionRating}">10</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
