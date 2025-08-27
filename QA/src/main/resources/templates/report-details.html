@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Report Details</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Report Details</h1>
+
+    <div th:if="${report}">
+        <h3>Basic Information</h3>
+        <p><strong>Customer:</strong> <span th:text="${report.customer}">Customer Name</span></p>
+        <p><strong>Consultant:</strong> <span th:text="${report.consultant}">Consultant Name</span></p>
+        <p><strong>Seller:</strong> <span th:text="${report.seller}">Seller Name</span></p>
+        <p><strong>Report Date:</strong> <span th:text="${report.reportDate}">2025-08-26</span></p>
+
+        <h3>Feedback</h3>
+        <p><strong>Result:</strong> <span th:text="${report.result}">...</span></p>
+        <p><strong>Responsibility:</strong> <span th:text="${report.responsibility}">...</span></p>
+        <p><strong>Initiative:</strong> <span th:text="${report.initiative}">...</span></p>
+        <h3>Overall Score</h3>
+        <p><strong>Satisfaction Rating:</strong> <span th:text="${report.satisfactionRating}">10</span></p>
+    </div>
+    
+    <div th:if="${report == null}">
+        <p>Report not found.</p>
+    </div>
+    
+    <br>
+    <a href="/">Back to Report List</a>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.hiqLeapdk.QA.model;
+package com.hiqleapdk.QA.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

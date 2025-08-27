@@ -1,12 +1,14 @@
-package com.hiqLeapdk.QA.controller;
+package com.hiqleapdk.QA.controller;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.hiqLeapdk.QA.model.QualityReport;
-import com.hiqLeapdk.QA.repository.QualityReportRepository;
+import com.hiqleapdk.QA.model.QualityReport;
+import com.hiqleapdk.QA.repository.QualityReportRepository;
 
 @Controller
 public class ReportController {
@@ -31,4 +33,22 @@ public class ReportController {
         reportRepository.save(report);
         return "redirect:/";
     }
+
+    @GetMapping("/report/{id}")
+    public String showReportDetails(@PathVariable("id") Long id, Model model) {
+
+    QualityReport report = reportRepository.findById(id)
+      .orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + id));
+    
+    model.addAttribute("report", report);
+    
+    return "report-details";
+    }
+
+    @PostMapping("/report/delete/{id}")
+    public String deleteReport(@PathVariable("id") Long id) {
+        reportRepository.deleteById(id);
+        return "redirect:/";
+    }
 }
+

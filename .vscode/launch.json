@@ -8,7 +8,7 @@
             "type": "java",
             "name": "QaApplication",
             "request": "launch",
-            "mainClass": "com.hiqLeapdk.QA.QaApplication",
+            "mainClass": "com.hiqleapdk.QA.QaApplication",
             "projectName": "QA"
         },
         {
