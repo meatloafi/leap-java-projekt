@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Companies</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="form-container">
+        <header class="form-header">
+            <a href="/" class="back-button">&lt;</a>
+
+            <h1>Manage Companies</h1>
+        </header>
+
+        <div class="card">
+            <h2>Add New Company</h2>
+            <form th:action="@{/companies/save}" th:object="${company}" method="post">
+                <input type="text" th:field="*{name}" placeholder="New company name..." />
+                <button type="submit">Add Company</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Existing Companies</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="comp : ${companies}">
+                        <td th:text="${comp.name}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

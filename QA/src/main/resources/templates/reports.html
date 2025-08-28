@@ -7,6 +7,8 @@
 <body>    
     <header class="page-header">
         <h1>Reports</h1>
+        <a href="/companies" class="manage-companies-button">Manage Companies</a>
+        <a href="/consultants" class="manage-consultants-button">Manage Consultants</a>
         <a href="/new" class="create-report-button">+ Create a New Report</a>
     </header>
     <br/><br/>
@@ -15,6 +17,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Summary</th>
                 <th>Consultant</th>
                 <th>Customer</th>
                 <th>Overall Score</th>
@@ -25,23 +28,19 @@
         <tbody>
             <tr th:each="report : ${reports}">
                 
-                <td th:text="${report.id}">Consultant Name</td>
-                <td th:text="${report.consultant}">Consultant Name</td>
+                <td th:text="${report.id}">...</td>
+                <td th:text="${report.reportSummary}">...</td>
+                <td th:text="${report.consultant.name}">...</td>
 
-                <td th:text="${report.customer}">Score</td>
+                <td th:text="${report.company.name}">...</td>
 
-                
-                <td th:text="${report.overallScore}">Score</td>
-
-                
-                <td th:text="${report.lastUpdatedDate}">2025-08-28</td>
-
+                <td th:text="${report.overallScore}">...</td>
+                <td th:text="${report.lastUpdatedDate}">...</td>
                 <td>
                     <a th:href="@{/edit/{id}(id=${report.id})}">Edit</a>
                     <a th:href="@{/report/{id}(id=${report.id})}">View</a>
+                    <a th:href="@{/delete/{id}(id=${report.id})}">Delete</a>
                 </td>
-
-
             </tr>
         </tbody>
     </table>

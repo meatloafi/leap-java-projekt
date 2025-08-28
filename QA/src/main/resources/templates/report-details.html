@@ -2,33 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Report Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1>Report Details</h1>
+    <div class="form-container">
+        <header class="form-header">
+            <a href="/" class="back-button">&lt;</a>
+            <h1>Report Details</h1>
+        </header>
 
-    <div th:if="${report}">
-        <h3>Basic Information</h3>
-        <p><strong>Customer:</strong> <span th:text="${report.customer}"></span></p>
-        <p><strong>Consultant:</strong> <span th:text="${report.consultant}"></span></p>
-        <p><strong>Overall Score:</strong> <span th:text="${report.overallScore}"></span></p>
+        <div class="card">
+            <h3>Basic Information</h3>
+            <p><strong>Company:</strong> <span th:text="${report.company.name}"></span></p>
+            <p><strong>Consultant:</strong> <span th:text="${report.consultant.name}"></span></p>
+            <p><strong>Project:</strong> <span th:text="${report.project}"></span></p>
+            <p><strong>Overall Score:</strong> <span th:text="${report.overallScore}"></span></p>
+            <p><strong>Created On:</strong> <span th:text="${report.createdDate}"></span></p>
+            <p><strong>Last Updated:</strong> <span th:text="${report.lastUpdatedDate}"></span></p>
+        </div>
 
-        <h3>Feedback</h3>
-        <p><strong>General Feedback:</strong> <span th:text="${report.feedback}"></span></p>
-        <p><strong>Pros:</strong> <span th:text="${report.pros}"></span></p>
-        <p><strong>Cons:</strong> <span th:text="${report.cons}"></span></p>
+        <div class="card">
+            <h3>Feedback</h3>
+            <p><strong>Report Summary:</strong> <span th:text="${report.reportSummary}"></span></p>
+            <p><strong>General Feedback:</strong> <span th:text="${report.feedback}"></span></p>
+            <p><strong>Pros:</strong> <span th:text="${report.pros}"></span></p>
+            <p><strong>Cons:</strong> <span th:text="${report.cons}"></span></p>
+        </div>
         
-        <h3>Detailed Scores</h3>
-        <p><strong>Results:</strong> <span th:text="${report.resultsScore}"></span></p>
-        <p><strong>Reliability:</strong> <span th:text="${report.reliabilityScore}"></span></p>
-        <p><strong>Collaborativity:</strong> <span th:text="${report.collaborativityScore}"></span></p>
-        <p><strong>Initiative:</strong> <span th:text="${report.initiativeScore}"></span></p>
-        <p><strong>Business Acumen:</strong> <span th:text="${report.businessAcumenScore}"></span></p>
-    </div>
-    
-    <br>
-    <a href="/">Back to Report List</a> |
-    <a th:href="@{/edit/{id}(id=${report.id})}">Edit</a> |
-    <a th:href="@{/delete/{id}(id=${report.id})}">Delete</a>
+        <div class="card">
+            <h3>Detailed Scores</h3>
+            <p><strong>Results:</strong> <span th:text="${report.resultsScore}"></span></p>
+            <p><strong>Reliability:</strong> <span th:text="${report.reliabilityScore}"></span></p>
+            <p><strong>Collaborativity:</strong> <span th:text="${report.collaborativityScore}"></span></p>
+            <p><strong>Initiative:</strong> <span th:text="${report.initiativeScore}"></span></p>
+            <p><strong>Business Acumen:</strong> <span th:text="${report.businessAcumenScore}"></span></p>
+        </div>
 
+        <br>
+        <a th:href="@{/edit/{id}(id=${report.id})}" class="create-report-button">Edit</a>
+        <a th:href="@{/delete/{id}(id=${report.id})}" class="delete-button" onclick="return confirm('Are you sure?');">Delete</a>
+    </div>
 </body>
 </html>

@@ -7,14 +7,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.hiqleapdk.QA.model.Consultant;
 import com.hiqleapdk.QA.model.QualityReport;
+import com.hiqleapdk.QA.repository.ConsultantRepository;
 import com.hiqleapdk.QA.repository.QualityReportRepository;
+
+
+
 
 @Controller
 public class ReportController {
 
     @Autowired
     private QualityReportRepository reportRepository;
+    @Autowired
+    private ConsultantRepository consultantRepository;
 
     @GetMapping("/")
     public String showReportList(Model model) {
@@ -22,14 +29,23 @@ public class ReportController {
         return "reports";
     }
 
-    @GetMapping("/new")
+     @GetMapping("/new")
     public String showNewReportForm(Model model) {
         model.addAttribute("report", new QualityReport());
+        model.addAttribute("allConsultants", consultantRepository.findAll());
         return "new-report";
     }
 
     @PostMapping("/save")
     public String saveReport(QualityReport report) {
+        Consultant consultant = report.getConsultant();
+        
+        if (consultant != null) {
+            // Auto set company
+            report.setCompany(consultant.getCompany());
+            report.setProject(consultant.getProjectTag());
+        }
+        report.calculateOverallScore();
         reportRepository.save(report);
         return "redirect:/";
     }
@@ -55,9 +71,17 @@ public class ReportController {
 
     @PostMapping("/update/{id}")
     public String updateReport(@PathVariable("id") Long id, QualityReport report) {
+        QualityReport originalReport = reportRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + id));
+
+        report.setConsultant(originalReport.getConsultant());
+        report.setCompany(originalReport.getCompany());
+        
         report.setId(id);
+        
+        report.calculateOverallScore();
         reportRepository.save(report);
-        return "redirect:/";
+        return "redirect:/report/" + id; // Redirect to the details page
     }
 
     @GetMapping("/delete/{id}")

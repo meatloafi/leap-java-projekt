@@ -2,44 +2,103 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Report</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1>Create Report</h1>
-    <form action="#" th:action="@{/save}" th:object="${report}" method="post">
-        
-        <h3>Basic Info</h3>
-        <label>Customer:</label><br>
-        <input type="text" th:field="*{customer}" /><br><br>
+    <div class="form-container">
+        <header class="form-header">
+            <a href="/" class="back-button">&lt;</a>
+            <h1>Create Report</h1>
+        </header>
 
-        <label>Consultant:</label><br>
-        <input type="text" th:field="*{consultant}" /><br><br>
+        <form th:action="@{/save}" th:object="${report}" method="post">
 
-        <label>Overall Score (0.0 - 10.0):</label><br>
-        <input type="number" step="0.1" min="0" max="10" th:field="*{overallScore}" /><br><br>
+            <div class="info-grid">
+                <div class="card">
+                    <label>Consultant</label>
+                    <select id="consultant-select" th:field="*{consultant}" required>
+                        <option value="">-- Select a Consultant --</option>
+                        <option th:each="cons : ${allConsultants}"
+                                th:value="${cons.id}"
+                                th:text="${cons.name}"
+                                th:data-company-name="${cons.company.name}"
+                                th:data-project-tag="${cons.projectTag}"></option>
+                    </select>
+                </div>
+                <div class="card info-display-card" id="company-display">
+                    <label>Company</label>
+                    <p id="company-name-text"></p>
+                </div>
+                <div class="card info-display-card" id="project-display">
+                    <label>Project</label>
+                    <p id="project-name-text"></p>
+                </div>
+            </div>
 
-        <h3>Feedback</h3>
-        <label>General Feedback:</label><br>
-        <textarea rows="4" cols="50" th:field="*{feedback}"></textarea><br><br>
+            <div class="card">
+                <h3>Feedback</h3>
+                <label>Report Summary</label>
+                <input type="text" th:field="*{reportSummary}" placeholder="A one-line summary..."/>
+                
+                <label>General Feedback</label>
+                <textarea th:field="*{feedback}"></textarea>
+                
+                <label>Pros</label>
+                <textarea th:field="*{pros}"></textarea>
+                
+                <label>Cons</label>
+                <textarea th:field="*{cons}"></textarea>
+            </div>
 
-        <label>Pros:</label><br>
-        <textarea rows="4" cols="50" th:field="*{pros}"></textarea><br><br>
+            <div class="card">
+                <h3>Detailed Scores (0.0 - 10.0)</h3>
+                <label>Results:</label>
+                <input type="number" step="0.1" min="0" max="10" th:field="*{resultsScore}">
+                
+                <label>Reliability:</label>
+                <input type="number" step="0.1" min="0" max="10" th:field="*{reliabilityScore}">
+                
+                <label>Collaborativity:</label>
+                <input type="number" step="0.1" min="0" max="10" th:field="*{collaborativityScore}">
+                
+                <label>Initiative:</label>
+                <input type="number" step="0.1" min="0" max="10" th:field="*{initiativeScore}">
+                
+                <label>Business Acumen:</label>
+                <input type="number" step="0.1" min="0" max="10" th:field="*{businessAcumenScore}">
+            </div>
+            
+            <button type="submit" class="submit-button">Save Report</button>
+        </form>
+    </div>
 
-        <label>Cons:</label><br>
-        <textarea rows="4" cols="50" th:field="*{cons}"></textarea><br><br>
+    <script>
+        document.getElementById('consultant-select').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            
+            const companyName = selectedOption.getAttribute('data-company-name');
+            const projectTag = selectedOption.getAttribute('data-project-tag');
+            
+            const companyDisplay = document.getElementById('company-display');
+            const companyNameText = document.getElementById('company-name-text');
+            const projectDisplay = document.getElementById('project-display');
+            const projectNameText = document.getElementById('project-name-text');
 
-        <h3>Detailed Scores (0.0 - 10.0)</h3>
-        <label>Results:</label>
-        <input type="number" step="0.1" min="0" max="10" th:field="*{resultsScore}" /><br>
-        <label>Reliability:</label>
-        <input type="number" step="0.1" min="0" max="10" th:field="*{reliabilityScore}" /><br>
-        <label>Collaborativity:</label>
-        <input type="number" step="0.1" min="0" max="10" th:field="*{collaborativityScore}" /><br>
-        <label>Initiative:</label>
-        <input type="number" step="0.1" min="0" max="10" th:field="*{initiativeScore}" /><br>
-        <label>Business Acumen:</label>
-        <input type="number" step="0.1" min="0" max="10" th:field="*{businessAcumenScore}" /><br><br>
+            if (companyName) {
+                companyNameText.textContent = companyName;
+                companyDisplay.style.visibility = 'visible';
+            } else {
+                companyDisplay.style.visibility = 'hidden';
+            }
 
-        <button type="submit">Save Report</button>
-    </form>
+            if (projectTag) {
+                projectNameText.textContent = projectTag;
+                projectDisplay.style.visibility = 'visible';
+            } else {
+                projectDisplay.style.visibility = 'hidden';
+            }
+        });
+    </script>
+
 </body>
 </html>
