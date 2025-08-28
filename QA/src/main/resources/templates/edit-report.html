@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.thymeleaf.org">
 <head>
-    <title>Create Report</title>
+    <title>Edit Report</title>
 </head>
 <body>
-    <h1>Create Report</h1>
-    <form action="#" th:action="@{/save}" th:object="${report}" method="post">
+    h1>Edit Quality Report</h1>
+    <form action="#" th:action="@{/edit/{id}(id=${report.id}) th:object="${report}" method="post">
         
         <h3>Basic Info</h3>
         <label>Customer:</label><br>
@@ -39,7 +39,7 @@
         <label>Business Acumen:</label>
         <input type="number" step="0.1" min="0" max="10" th:field="*{businessAcumenScore}" /><br><br>
 
-        <button type="submit">Save Report</button>
+        <button type="submit">Update Report</button>
     </form>
 </body>
 </html>

@@ -45,9 +45,27 @@ public class ReportController {
     return "report-details";
     }
 
-    @PostMapping("/report/delete/{id}")
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+        QualityReport report = reportRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + id));
+        model.addAttribute("report", report);
+        return "update-report"; 
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateReport(@PathVariable("id") Long id, QualityReport report) {
+        report.setId(id);
+        reportRepository.save(report);
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
     public String deleteReport(@PathVariable("id") Long id) {
-        reportRepository.deleteById(id);
+        QualityReport report = reportRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + id));
+        
+        reportRepository.delete(report);
         return "redirect:/";
     }
 }

@@ -1,34 +1,48 @@
 package com.hiqleapdk.QA.model;
 
+import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDate;
+import jakarta.persistence.Table;
 
+@Table(name = "quality_reports_v2")
 @Entity
 public class QualityReport {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    
+    // Basic info
     private String customer;
     private String consultant;
-    private String seller;
-    private LocalDate reportDate;
+    private double overallScore;
 
-    // Feedback
-    private String result;
-    private String responsibility;
-    private String initiative;
-    private String punctuality;
-    private String reliability;
-    private String technicalKnowledge;
-    private String functionalKnowledge;
-    private String followUp;
+    // Text Feedback
+    private String feedback;
+    private String pros;
+    private String cons;
 
-    // Feedback Score (1 to 10)
-    private int satisfactionRating;
+    // Scores
+    private double resultsScore;
+    private double reliabilityScore;
+    private double collaborativityScore;
+    private double initiativeScore;
+    private double businessAcumenScore;
+
+    // Date
+    @CreationTimestamp
+    private LocalDate createdDate;
+
+    @UpdateTimestamp
+    private LocalDate lastUpdatedDate;
+
 
     public Long getId() {
         return id;
@@ -54,91 +68,91 @@ public class QualityReport {
         this.consultant = consultant;
     }
 
-    public String getSeller() {
-        return seller;
+    public double getOverallScore() {
+        return overallScore;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setOverallScore(double overallScore) {
+        this.overallScore = overallScore;
     }
 
-    public LocalDate getReportDate() {
-        return reportDate;
+    public String getFeedback() {
+        return feedback;
     }
 
-    public void setReportDate(LocalDate reportDate) {
-        this.reportDate = reportDate;
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
-    public String getResult() {
-        return result;
+    public String getPros() {
+        return pros;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setPros(String pros) {
+        this.pros = pros;
     }
 
-    public String getResponsibility() {
-        return responsibility;
+    public String getCons() {
+        return cons;
     }
 
-    public void setResponsibility(String responsibility) {
-        this.responsibility = responsibility;
+    public void setCons(String cons) {
+        this.cons = cons;
     }
 
-    public String getInitiative() {
-        return initiative;
+    public double getResultsScore() {
+        return resultsScore;
     }
 
-    public void setInitiative(String initiative) {
-        this.initiative = initiative;
+    public void setResultsScore(double resultsScore) {
+        this.resultsScore = resultsScore;
     }
 
-    public String getPunctuality() {
-        return punctuality;
+    public double getReliabilityScore() {
+        return reliabilityScore;
     }
 
-    public void setPunctuality(String punctuality) {
-        this.punctuality = punctuality;
+    public void setReliabilityScore(double reliabilityScore) {
+        this.reliabilityScore = reliabilityScore;
     }
 
-    public String getReliability() {
-        return reliability;
+    public double getCollaborativityScore() {
+        return collaborativityScore;
     }
 
-    public void setReliability(String reliability) {
-        this.reliability = reliability;
+    public void setCollaborativityScore(double collaborativityScore) {
+        this.collaborativityScore = collaborativityScore;
     }
 
-    public String getTechnicalKnowledge() {
-        return technicalKnowledge;
+    public double getInitiativeScore() {
+        return initiativeScore;
     }
 
-    public void setTechnicalKnowledge(String technicalKnowledge) {
-        this.technicalKnowledge = technicalKnowledge;
+    public void setInitiativeScore(double initiativeScore) {
+        this.initiativeScore = initiativeScore;
     }
 
-    public String getFunctionalKnowledge() {
-        return functionalKnowledge;
+    public double getBusinessAcumenScore() {
+        return businessAcumenScore;
     }
 
-    public void setFunctionalKnowledge(String functionalKnowledge) {
-        this.functionalKnowledge = functionalKnowledge;
+    public void setBusinessAcumenScore(double businessAcumenScore) {
+        this.businessAcumenScore = businessAcumenScore;
     }
 
-    public String getFollowUp() {
-        return followUp;
+    public LocalDate getCreatedDate() {
+        return createdDate;
     }
 
-    public void setFollowUp(String followUp) {
-        this.followUp = followUp;
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public int getSatisfactionRating() {
-        return satisfactionRating;
+    public LocalDate getLastUpdatedDate() {
+        return lastUpdatedDate;
     }
 
-    public void setSatisfactionRating(int satisfactionRating) {
-        this.satisfactionRating = satisfactionRating;
+    public void setLastUpdatedDate(LocalDate lastUpdatedDate) {
+        this.lastUpdatedDate = lastUpdatedDate;
     }
 }

@@ -2,32 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Report Details</title>
-    <meta charset="UTF-8">
 </head>
 <body>
     <h1>Report Details</h1>
 
     <div th:if="${report}">
         <h3>Basic Information</h3>
-        <p><strong>Customer:</strong> <span th:text="${report.customer}">Customer Name</span></p>
-        <p><strong>Consultant:</strong> <span th:text="${report.consultant}">Consultant Name</span></p>
-        <p><strong>Seller:</strong> <span th:text="${report.seller}">Seller Name</span></p>
-        <p><strong>Report Date:</strong> <span th:text="${report.reportDate}">2025-08-26</span></p>
+        <p><strong>Customer:</strong> <span th:text="${report.customer}"></span></p>
+        <p><strong>Consultant:</strong> <span th:text="${report.consultant}"></span></p>
+        <p><strong>Overall Score:</strong> <span th:text="${report.overallScore}"></span></p>
 
         <h3>Feedback</h3>
-        <p><strong>Result:</strong> <span th:text="${report.result}">...</span></p>
-        <p><strong>Responsibility:</strong> <span th:text="${report.responsibility}">...</span></p>
-        <p><strong>Initiative:</strong> <span th:text="${report.initiative}">...</span></p>
-        <h3>Overall Score</h3>
-        <p><strong>Satisfaction Rating:</strong> <span th:text="${report.satisfactionRating}">10</span></p>
-    </div>
-    
-    <div th:if="${report == null}">
-        <p>Report not found.</p>
+        <p><strong>General Feedback:</strong> <span th:text="${report.feedback}"></span></p>
+        <p><strong>Pros:</strong> <span th:text="${report.pros}"></span></p>
+        <p><strong>Cons:</strong> <span th:text="${report.cons}"></span></p>
+        
+        <h3>Detailed Scores</h3>
+        <p><strong>Results:</strong> <span th:text="${report.resultsScore}"></span></p>
+        <p><strong>Reliability:</strong> <span th:text="${report.reliabilityScore}"></span></p>
+        <p><strong>Collaborativity:</strong> <span th:text="${report.collaborativityScore}"></span></p>
+        <p><strong>Initiative:</strong> <span th:text="${report.initiativeScore}"></span></p>
+        <p><strong>Business Acumen:</strong> <span th:text="${report.businessAcumenScore}"></span></p>
     </div>
     
     <br>
-    <a href="/">Back to Report List</a>
+    <a href="/">Back to Report List</a> |
+    <a th:href="@{/edit/{id}(id=${report.id})}">Edit</a> |
+    <a th:href="@{/delete/{id}(id=${report.id})}">Delete</a>
 
 </body>
 </html>
