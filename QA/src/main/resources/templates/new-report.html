@@ -17,7 +17,7 @@
                 <div class="card">
                     <label>Consultant</label>
                     <select id="consultant-select" th:field="*{consultant}" required>
-                        <option value="">-- Select a Consultant --</option>
+                        <option value=""> Select a Consultant </option>
                         <option th:each="cons : ${allConsultants}"
                                 th:value="${cons.id}"
                                 th:text="${cons.name}"
