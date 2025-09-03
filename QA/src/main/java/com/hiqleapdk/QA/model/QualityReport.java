@@ -8,11 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "quality_reports_v2")
+@Table(name = "quality_reports_v3")
 public class QualityReport {
 
     @Id
@@ -25,6 +26,8 @@ public class QualityReport {
     @UpdateTimestamp
     private LocalDate lastUpdatedDate;
 
+    private LocalDateTime managerViewedTimestamp;
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -35,16 +38,52 @@ public class QualityReport {
 
     private String project;
     private String reportSummary;
-    private double overallScore;
     private String feedback;
     private String pros;
     private String cons;
-    private double resultsScore;
-    private double reliabilityScore;
-    private double collaborativityScore;
-    private double initiativeScore;
-    private double businessAcumenScore;
 
+    private String priority;
+
+    private double overallScore;
+    private double joyScore;
+    private double simplicityScore;
+    private double resultScore;
+    private double responsibilityScore;
+
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public String getReportSummary() {
+        return reportSummary;
+    }
+
+    public void setReportSummary(String reportSummary) {
+        this.reportSummary = reportSummary;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    
     public Long getId() {
         return id;
     }
@@ -69,6 +108,14 @@ public class QualityReport {
         this.lastUpdatedDate = lastUpdatedDate;
     }
 
+    public LocalDateTime getManagerViewedTimestamp() {
+        return managerViewedTimestamp;
+    }
+
+    public void setManagerViewedTimestamp(LocalDateTime managerViewedTimestamp) {
+        this.managerViewedTimestamp = managerViewedTimestamp;
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -85,36 +132,12 @@ public class QualityReport {
         this.consultant = consultant;
     }
 
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getReportSummary() {
-        return reportSummary;
-    }
-
-    public void setReportSummary(String reportSummary) {
-        this.reportSummary = reportSummary;
-    }
-
     public double getOverallScore() {
         return overallScore;
     }
 
     public void setOverallScore(double overallScore) {
         this.overallScore = overallScore;
-    }
-
-    public String getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
     }
 
     public String getPros() {
@@ -132,49 +155,41 @@ public class QualityReport {
     public void setCons(String cons) {
         this.cons = cons;
     }
-
-    public double getResultsScore() {
-        return resultsScore;
+    
+    public double getJoyScore() {
+        return joyScore;
     }
 
-    public void setResultsScore(double resultsScore) {
-        this.resultsScore = resultsScore;
+    public void setJoyScore(double joyScore) {
+        this.joyScore = joyScore;
     }
 
-    public double getReliabilityScore() {
-        return reliabilityScore;
+    public double getSimplicityScore() {
+        return simplicityScore;
     }
 
-    public void setReliabilityScore(double reliabilityScore) {
-        this.reliabilityScore = reliabilityScore;
+    public void setSimplicityScore(double simplicityScore) {
+        this.simplicityScore = simplicityScore;
     }
 
-    public double getCollaborativityScore() {
-        return collaborativityScore;
+    public double getResultScore() {
+        return resultScore;
     }
 
-    public void setCollaborativityScore(double collaborativityScore) {
-        this.collaborativityScore = collaborativityScore;
+    public void setResultScore(double resultScore) {
+        this.resultScore = resultScore;
     }
 
-    public double getInitiativeScore() {
-        return initiativeScore;
+    public double getResponsibilityScore() {
+        return responsibilityScore;
     }
 
-    public void setInitiativeScore(double initiativeScore) {
-        this.initiativeScore = initiativeScore;
-    }
-
-    public double getBusinessAcumenScore() {
-        return businessAcumenScore;
-    }
-
-    public void setBusinessAcumenScore(double businessAcumenScore) {
-        this.businessAcumenScore = businessAcumenScore;
+    public void setResponsibilityScore(double responsibilityScore) {
+        this.responsibilityScore = responsibilityScore;
     }
 
     public void calculateOverallScore() {
-    double total = resultsScore + reliabilityScore + collaborativityScore + initiativeScore + businessAcumenScore;
-    this.overallScore = total / 5.0;
-}
+        double total = joyScore + simplicityScore + resultScore + responsibilityScore;
+        this.overallScore = total / 4.0;
+    }
 }
