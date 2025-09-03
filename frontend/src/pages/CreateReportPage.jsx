@@ -1,150 +1,68 @@
 // src/pages/CreateReportPage.js
 import React from 'react';
-import { Typography, Grid, TextField, CardContent, Card } from '@mui/material';
-import ReportCard from '../components/ReportCard';
+import { styled } from '@mui/material/styles';
+import Header from '../components/Header';
+import { Typography, Grid, TextField, CardContent, Card, Paper, Box } from '@mui/material';
+import OutlinedCard from '../components/Card';
+import OutlinedCardTall from '../components/CardTall';
+import CardProCon from '../components/CardProCon';
+
 import ScoreCircle from '../components/ScoreCircle';
+
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
 
 export default function CreateReportPage() {
   return (
-    <div>
-        <Grid container spacing={2} sx={{ width: '100vw'}}>
-            <Grid item md={4}>
-                <Card sx={{ p: 2, mb: 2, width: '30vw'}}>
-                    <CardContent>
-                        <Typography variant="h6" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Customer
-                        </Typography>
-                        <Typography variant="h4" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Almarenaneue, sans-serif', fontWeight: 'bold' }}>
-                            Company A
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item md={4} >
-                <Card sx={{ p: 2, mb: 2, width: '30vw'}}>
-                    <CardContent>
-                        <Typography variant="h6" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Customer
-                        </Typography>
-                        <Typography variant="h4" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Almarenaneue, sans-serif', fontWeight: 'bold' }}>
-                            Company A
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item md={4}>
-                <Card sx={{ p: 2, width: '30vw'}}>
-                    <CardContent>
-                        <Typography variant="h6" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Customer
-                        </Typography>
-                        <Typography variant="h4" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Almarenaneue, sans-serif', fontWeight: 'bold' }}>
-                            Company A
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
+    <Box sx={{ flexGrow: 1}}>
+    <Header>    </Header>
+      <Grid container spacing={1} paddingTop={"8px"}>
+        <Grid item size="grow">
+            <OutlinedCard label="Customer" company="Company A"  description="Vehicle Manufacturing"></OutlinedCard>
+        </Grid>
+        <Grid item size="grow">
+            <OutlinedCard label="Consultant" company="Helena"  description="helena@hiq.se"></OutlinedCard>
+        </Grid>
+        <Grid item size="grow">
+            <OutlinedCard label="Overall Score" company="8.1"  description="-8% compared to last report"></OutlinedCard>
+        </Grid>
+      </Grid>
+      {/* next row */}
+      <Grid container spacing={1}>
+        <Grid item size={4} paddingTop="8px">
+            <OutlinedCardTall title="Customer" company="Company A" adjective="adjective" description="Vehicle manufacturer"></OutlinedCardTall>
+        </Grid>
+        <Grid item size={8} paddingTop="8px">
+            <CardProCon color="#00DECF" label="Customer" content="Enter strengths..."></CardProCon>
+            <CardProCon color= "#FACAD9" label="Customer" content="Enter areas of improvement..."></CardProCon>
+        </Grid>
+      </Grid>
+      {/* next row */}
+      <Grid container spacing={1}>
+        <Grid item size={3}>
+            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+        </Grid>
+        <Grid item size={3}>
+            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+        </Grid>
+        <Grid item size={3}>
+            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+        </Grid>
+         <Grid item size={3}>
+            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
         </Grid>
 
-
-        <Grid container spacing={2} sx={{ width: '100vw'}}>
-            <Grid item md={4}>
-                <Card sx={{ p: 2, mb: 2, width: '30vw', height: '41.3vh'}}>
-                    <CardContent>
-                        <Typography variant="body" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Feedback
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item md={8} >
-                <Card sx={{ p: 2, mb: 2, width: '63vw', height: '18.1vh'}}>
-                    <CardContent>
-                        <Typography variant="body1" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Customer
-                        </Typography>
-                        <Typography variant="h6" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Almarenaneue, sans-serif' }}>
-                            Enter strengths...
-                        </Typography>
-                    </CardContent>
-                </Card>
-                <Card sx={{ p: 2, mb: 2, width: '63vw', height: '18.1vh'}}>
-                    <CardContent>
-                        <Typography variant="body1" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Areas of Improvement
-                        </Typography>
-                        <Typography variant="h6" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Almarenaneue, sans-serif' }}>
-                            Enter areas of strenghts...
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            
-        </Grid>
-
-        <Grid container spacing={2} sx={{ width: '100vw'}}>
-            <Grid item md={3}>
-                <Card sx={{ p: 2, mb: 2, width: '22vw', height: '25vh'}}>
-                    <CardContent>
-                        <Typography variant="body" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Feedback
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item md={3}>
-                <Card sx={{ p: 2, mb: 2, width: '22vw', height: '25vh'}}>
-                    <CardContent>
-                        <Typography variant="body" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Feedback
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item md={3}>
-                <Card sx={{ p: 2, mb: 2, width: '22vw', height: '25vh'}}>
-                    <CardContent>
-                        <Typography variant="body" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Feedback
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item md={3}>
-                <Card sx={{ p: 2, mb: 2, width: '22vw', height: '25vh'}}>
-                    <CardContent>
-                        <Typography variant="body" component="div"  gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Feedback
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" gutterBottom sx={{ textAlign: 'left', fontFamily: 'Helvetica, arial' }}>
-                            Vehicle Manufacturing
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            
-        </Grid>
-    </div>
-  )
+      </Grid>
+      
+    </Box>
+  );
 }
