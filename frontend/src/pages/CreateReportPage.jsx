@@ -9,18 +9,6 @@ import CardProCon from '../components/CardProCon';
 
 import ScoreCircle from '../components/ScoreCircle';
 
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
-
 export default function CreateReportPage() {
   return (
     <Box sx={{ flexGrow: 1}}>

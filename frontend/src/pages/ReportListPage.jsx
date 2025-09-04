@@ -48,6 +48,24 @@ function ReportListPage() {
         >
           + Create Report
         </Button>
+        <Button
+          component={RouterLink}
+          to="/consultant/viewAll"
+          variant="contained"
+          color="primary"
+          style={{backgroundColor: '#00DECE' }}
+        >
+          Consultants
+        </Button>
+        <Button
+          component={RouterLink}
+          to="/company/viewAll"
+          variant="contained"
+          color="primary"
+          style={{backgroundColor: '#00DECE' }}
+        >
+          Companies
+        </Button>
       </header>
 
       {renderContent()}
