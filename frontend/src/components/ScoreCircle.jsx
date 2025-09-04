@@ -7,7 +7,6 @@ import "react-circular-progressbar/dist/styles.css";
 
 export default function ScoreCircle({
   label = "Customer",
-  company = "Company A",
   description = "Vehicle manufacturer",
   percentage = 66
 }) {
@@ -15,7 +14,7 @@ export default function ScoreCircle({
     <Box sx={{ minWidth: 275 }}>
       <Card variant="outlined">
         <CardContent >
-          <Typography gutterBottom variant="body1" sx={{ textAlign: 'left', color: 'text.secondary', fontSize: 16, fontFamily: 'Helvetica', paddingBottom: 1 }}>
+          <Typography gutterBottom variant="h3" sx={{ textAlign: 'left', color: 'text.secondary', fontSize: 25, fontFamily: 'AlmarenaNeue', paddingBottom: 1, fontWeight: 'bold' }}>
             {label}
           </Typography>
           <div style={{ width: 170, height: 170, alignItems: 'center', margin: '0 auto', paddingBottom: 10 }}>
@@ -47,7 +46,7 @@ export default function ScoreCircle({
                 />
           </div>
           
-          <Typography variant="body2" sx={{ textAlign: 'left', color: 'text.secondary', fontSize: 18, fontFamily: 'Helvetica'}}>
+          <Typography variant="body2" sx={{ textAlign: 'left', color: 'text.secondary', fontSize: 18, fontFamily: 'Helvetica', paddingTop: 1, width:250, opacity:0.7}}>
             {description}
           </Typography>
         </CardContent>

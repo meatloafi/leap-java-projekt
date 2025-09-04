@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 
 export default function Header({
     onBack = () => window.history.back(),
-    pageTitle = "Tutke",
+    pageTitle = "Title",
     userAvatarSrc = null,
     userName = "Helena",
     logoSrc = null,

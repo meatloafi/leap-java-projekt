@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function CreateReportPage() {
   return (
     <Box sx={{ flexGrow: 1}}>
-    <Header>    </Header>
+    <Header pageTitle="Create Report">    </Header>
       <Grid container spacing={1} paddingTop={"8px"}>
         <Grid item size="grow">
             <OutlinedCard label="Customer" company="Company A"  description="Vehicle Manufacturing"></OutlinedCard>
@@ -49,16 +49,16 @@ export default function CreateReportPage() {
       {/* next row */}
       <Grid container spacing={1}>
         <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle label="Simplicity" description="How easy is the consultant to work with?" subtitle="8.5" score="8.5"></ScoreCircle>
         </Grid>
         <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle label="Joy" description="Does the consultant bring positivity into the workplace?" subtitle="8.5" score="8.5"></ScoreCircle>
         </Grid>
         <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle label="Results" description="Does the consultant meed customer expectations?" subtitle="8.5" score="8.5"></ScoreCircle>
         </Grid>
          <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle label="Responsability" description="Does the consultant take initiative on their own?" subtitle="8.5" score="8.5"></ScoreCircle>
         </Grid>
 
       </Grid>
