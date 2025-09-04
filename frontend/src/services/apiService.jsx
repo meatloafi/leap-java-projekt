@@ -10,7 +10,7 @@ const apiClient = axios.create({
 });
 
 // Rapporter
-export const getAllReports = () => apiClient.get('/reports');
+export const getAllReports = () => fetch("http://localhost:8080/api/reports").then(res => res.json());
 export const getReportById = (id) => apiClient.get(`/reports/${id}`);
 export const createReport = (reportData) => apiClient.post('/reports', reportData);
 export const updateReport = (id, reportData) => apiClient.put(`/reports/${id}`, reportData);

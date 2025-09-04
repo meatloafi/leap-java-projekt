@@ -2,6 +2,8 @@ package com.hiqleapdk.QA.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Seller {
     private String name;
     private String email;
 
+    
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
         name = "seller_company", 
@@ -52,6 +55,7 @@ public class Seller {
         this.email = email;
     }
 
+    @JsonIgnoreProperties({"company", "seller", "manager"})
     public Set<Company> getCompanies() {
         return companies;
     }

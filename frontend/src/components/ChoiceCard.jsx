@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, IconButton } from '@mui/material';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import AddIcon from '@mui/icons-material/Add';
+// src/components/ChoiceCard.jsx
+import React from 'react';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Card,
+  CardContent,
+  Typography,
+  Box
+} from '@mui/material';
 
 export default function ChoiceCard({
-  label = "Select Item",
-  options = [],         
-  onSubmit,
-  buttonIcon = <AddIcon />,
-  valueKey = "id",     
-  displayKey = "name",  
+  label = "Select",
+  value = "",
+  options = [],           
+  valueKey = "id",        
+  displayKey = "name",    
+  onChange
 }) {
-  const [selected, setSelected] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onSubmit) {
-      onSubmit(selected);
-      setSelected('');
-    }
-  };
+  console.log(`${label} options:`, options);
 
   return (
-    <Box sx={{ minWidth: 275, minHeight: 120 }}>
+    <Box sx={{ minWidth: 275, minHeight: 100 }}>
       <Card variant="outlined">
         <CardContent>
           <Typography
@@ -36,23 +34,27 @@ export default function ChoiceCard({
               color: 'text.secondary',
               fontSize: 16,
               fontFamily: 'Helvetica',
-              paddingBottom: 2,
+              paddingBottom: 2
             }}
           >
             {label}
           </Typography>
 
-          <FormControl fullWidth variant="standard" sx={{ mb: 2 }}>
-            <InputLabel>Choose {label} Here...</InputLabel>
+          <FormControl fullWidth variant="standard">
+            <InputLabel>{label}</InputLabel>
             <Select
-              value={selected}
-              onChange={(e) => setSelected(e.target.value)}
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
             >
-              {options.map((opt) => (
-                <MenuItem key={opt[valueKey]} value={opt[valueKey]}>
-                  {opt[displayKey]}
-                </MenuItem>
-              ))}
+              {options.length === 0 ? (
+                <MenuItem disabled>No {label} available</MenuItem>
+              ) : (
+                options.map((opt) => (
+                  <MenuItem key={opt[valueKey]} value={opt[valueKey]}>
+                    {opt[displayKey]}
+                  </MenuItem>
+                ))
+              )}
             </Select>
           </FormControl>
         </CardContent>

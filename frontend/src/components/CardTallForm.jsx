@@ -5,15 +5,15 @@ import AddIcon from '@mui/icons-material/Add';
 
 export default function CardTallForm({
   label = "Feedback",
-  content = "",
-  onSubmit, 
+  content,
+  onChange, 
 }) {
   const [inputValue, setInputValue] = useState(content);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSubmit) {
-      onSubmit(inputValue);
+    if (onChange) {
+      onChange(inputValue);
     }
     setInputValue("");
   };
@@ -36,17 +36,18 @@ export default function CardTallForm({
             {label}
           </Typography>
 
-          <form onSubmit={handleSubmit}>
+          <form onChange={handleSubmit}>
             <TextField
               required
               fullWidth
               multiline
               minRows={4}
               variant="standard"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={content}
+              onChange={(e) => onChange?.(e.target.value)}
               sx={{ mb: 2 }}
               placeholder="Enter your feedback..."
+              
             />
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>

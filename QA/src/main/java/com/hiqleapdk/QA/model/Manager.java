@@ -2,6 +2,8 @@ package com.hiqleapdk.QA.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +19,9 @@ public class Manager {
     private Long id;
     private String name;
 
+    
     @OneToMany(mappedBy = "manager")
+    @JsonIgnoreProperties({"company", "seller", "manager"})
     private Set<Consultant> consultants;
 
     public Long getId() {

@@ -7,17 +7,17 @@ import Typography from '@mui/material/Typography';
 
 export default function CardProConForm({
   label = "Pro/Con",
-  content = "Enter Pros/Cons here...",
+  content,
   color = "white",
-  onSubmit
+  onChange
 }) {
 
   const [inputValue, setInputValue] = useState(content);
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      if (onSubmit) {
-        onSubmit(inputValue);
+      if (onChange) {
+        onChange(inputValue);
       }
       setInputValue("");
     };
@@ -29,15 +29,15 @@ export default function CardProConForm({
           <Typography gutterBottom variant="body1" sx={{ textAlign: 'left', color: 'text.secondary', fontSize: 16, fontFamily: 'Helvetica', paddingBottom: 2 }}>
             {label}
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form onChange={handleSubmit}>
             <TextField
               required
               fullWidth
               multiline
               minRows={4}
               variant="standard"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={content}
+              onChange={(e) => onChange?.(e.target.value)}
               sx={{ mb: 2 }}
               placeholder="Enter your feedback..."
             />
