@@ -9,20 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reports") // Bas-URL för alla rapport-endpoints
+@RequestMapping("/api/reports") 
 @CrossOrigin(origins = "http://localhost:8080") 
 public class ReportController {
 
     @Autowired
     private QualityReportRepository reportRepository;
 
-    // GET /api/reports - Hämta alla rapporter
     @GetMapping
     public List<QualityReport> getAllReports() {
         return reportRepository.findAll();
     }
 
-    // GET /api/reports/{id} - Hämta en specifik rapport
     @GetMapping("/{id}")
     public ResponseEntity<QualityReport> getReportById(@PathVariable Long id) {
         return reportRepository.findById(id)
@@ -30,7 +28,6 @@ public class ReportController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST /api/reports - Skapa en ny rapport
     @PostMapping
     public QualityReport createReport(@RequestBody QualityReport report) {
         report.calculateOverallScore();
