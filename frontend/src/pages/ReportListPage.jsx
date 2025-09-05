@@ -87,19 +87,29 @@ export default function ReportListPage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {reports.map((report) => (
-                <TableRow key={report.id}>
-                  <TableCell>{report.id}</TableCell>
-                  <TableCell>{report.company?.name || '-'}</TableCell>
-                  <TableCell>{report.consultant?.name || '-'}</TableCell>
-                  <TableCell>{report.consultant?.manager?.name || '-'}</TableCell>
-                  <TableCell>{report.consultant?.seller?.name || '-'}</TableCell>
-                  <TableCell>{report.feedback || '-'}</TableCell>
-                  <TableCell>{computeOverallScore(report)}</TableCell>
-                  <TableCell>{report.createdDate ? new Date(report.createdDate).toLocaleDateString() : '-'}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                {reports.map((report) => (
+                  <TableRow
+                    key={report.id}
+                    hover
+                    sx={{ cursor: 'pointer' }}
+                    component={RouterLink}
+                    to={`/reports/${report.id}`}
+                  >
+                    <TableCell>{report.id}</TableCell>
+                    <TableCell>{report.company?.name || '-'}</TableCell>
+                    <TableCell>{report.consultant?.name || '-'}</TableCell>
+                    <TableCell>{report.consultant?.manager?.name || '-'}</TableCell>
+                    <TableCell>{report.consultant?.seller?.name || '-'}</TableCell>
+                    <TableCell>{report.feedback || '-'}</TableCell>
+                    <TableCell>{computeOverallScore(report)}</TableCell>
+                    <TableCell>
+                      {report.createdDate
+                        ? new Date(report.createdDate).toLocaleDateString()
+                        : '-'}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
           </Table>
         </TableContainer>
       )}

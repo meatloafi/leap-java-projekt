@@ -1,64 +1,99 @@
 // src/pages/ReportDetails.js
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import { Typography, Grid, TextField, CardContent, Card, Paper, Box } from '@mui/material';
+import { Typography, Grid, CardContent, Box, Card, Button, Stack} from '@mui/material';
 import OutlinedCard from '../components/Card';
 import OutlinedCardTall from '../components/CardTall';
 import CardProCon from '../components/CardProCon';
-
 import ScoreCircle from '../components/ScoreCircle';
-
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckIcon from '@mui/icons-material/Check';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function ReportDetails() {
+  const { id } = useParams(); 
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReport = async () => {
+      try {
+        const res = await fetch(`http://localhost:8080/api/reports/${id}`);
+        if (!res.ok) throw new Error("Failed to fetch report");
+        const data = await res.json();
+        setReport(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReport();
+  }, [id]);
+
+  if (loading) return <Typography>Loading report...</Typography>;
+  if (!report) return <Typography>No report found.</Typography>;
+
   return (
-    <Box sx={{ flexGrow: 1}}>
+    <Box sx={{ flexGrow: 1 }}>
     <Header  pageTitle="Report Details">    </Header>
       <Grid container spacing={1} paddingTop={"8px"}>
-        <Grid item size="grow">
-            <OutlinedCard label="Customer" company="Company A"  description="Vehicle Manufacturing"></OutlinedCard>
+        <Grid item size={3}>
+            <OutlinedCard label="Customer" company={report.company?.name} description={`Manager: ${report.consultant?.manager?.name || ''}`}/>
         </Grid>
-        <Grid item size="grow">
-            <OutlinedCard label="Consultant" company="Helena"  description="helena@hiq.se"></OutlinedCard>
+        <Grid item size={3}>
+          <Card variant="outlined">
+            <CardContent variant="outlined">
+            <Stack direction="column" spacing={2}>
+              <Button variant="contained" endIcon={<CheckIcon />}>
+                Seen by Manager
+              </Button>
+              <Button variant="outlined" startIcon={<EditIcon />}>
+                Edit
+              </Button>
+              <Button variant="outlined" startIcon={<DeleteIcon />}>
+                Delete
+              </Button>
+            </Stack>
+            </CardContent>
+
+          </Card>
         </Grid>
-        <Grid item size="grow">
-            <OutlinedCard label="Overall Score" company="8.1"  description="-8% compared to last report"></OutlinedCard>
+        <Grid item size={3}>
+            <OutlinedCard label="Consultant" company={report.consultant?.name}  description={report.consultant?.email}></OutlinedCard>
+        </Grid>
+        <Grid item size={3}>
+            <OutlinedCard
+              label="Overall Score"
+              company={report.overallScore?.toFixed(1)}
+              description="Combined average of all scores"
+            />
         </Grid>
       </Grid>
       {/* next row */}
       <Grid container spacing={1}>
         <Grid item size={4} paddingTop="8px">
-            <OutlinedCardTall title="Customer" company="Company A" adjective="adjective" description="Vehicle manufacturer"></OutlinedCardTall>
+            <OutlinedCardTall content={report.feedback}></OutlinedCardTall>
         </Grid>
         <Grid item size={8} paddingTop="8px">
-            <CardProCon color="#00DECF" label="Customer" content="Enter strengths..."></CardProCon>
-            <CardProCon color= "#FACAD9" label="Customer" content="Enter areas of improvement..."></CardProCon>
+            <CardProCon color="#00DECF" label="Strenghts" content={report.pros}></CardProCon>
+            <CardProCon color= "#FACAD9" label="Areas of Improvement" content={report.cons}></CardProCon>
         </Grid>
       </Grid>
       {/* next row */}
       <Grid container spacing={1}>
         <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle title="Joy" description="How engaged is the consultant with the customer?" subtitle={report.joyScore} score={report.joyScore} ></ScoreCircle>
         </Grid>
         <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle title="Simplicity" description="How easy is it to work with the consultant?" score={report.simplicityScore}></ScoreCircle>
         </Grid>
         <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle title="Results" description="Does the consultant deliver on expectations?" score={report.resultScore}></ScoreCircle>
         </Grid>
          <Grid item size={3}>
-            <ScoreCircle title="Quality" subtitle="8.5" score="8.5"></ScoreCircle>
+            <ScoreCircle title="Responsibility" description="Does the consultant take initiative?" score={report.responsibilityScore}></ScoreCircle>
         </Grid>
 
       </Grid>

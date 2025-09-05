@@ -1,23 +1,11 @@
-// src/components/CardTallForm.jsx
-import React, { useState } from 'react';
-import { Box, Card, CardContent, Typography, TextField, IconButton } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import React from 'react';
+import { Box, Card, CardContent, Typography, TextField } from '@mui/material';
 
 export default function CardTallForm({
   label = "Feedback",
-  content,
-  onChange, 
+  value,
+  onChange,
 }) {
-  const [inputValue, setInputValue] = useState(content);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onChange) {
-      onChange(inputValue);
-    }
-    setInputValue("");
-  };
-
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card variant="outlined">
@@ -30,29 +18,22 @@ export default function CardTallForm({
               color: 'text.secondary',
               fontSize: 16,
               fontFamily: 'Helvetica',
-              paddingBottom: 2,
+              pb: 2,
             }}
           >
             {label}
           </Typography>
 
-          <form onChange={handleSubmit}>
-            <TextField
-              required
-              fullWidth
-              multiline
-              minRows={4}
-              variant="standard"
-              value={content}
-              onChange={(e) => onChange?.(e.target.value)}
-              sx={{ mb: 2 }}
-              placeholder="Enter your feedback..."
-              
-            />
-
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            </Box>
-          </form>
+          <TextField
+            required
+            fullWidth
+            multiline
+            minRows={4}
+            variant="standard"
+            value={value}
+            onChange={(e) => onChange?.(e.target.value)}
+            placeholder="Enter your feedback..."
+          />
         </CardContent>
       </Card>
     </Box>

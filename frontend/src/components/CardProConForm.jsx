@@ -1,51 +1,40 @@
-import React, { useState } from 'react';
-import { TextField } from '@mui/material';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import React from 'react';
+import { TextField, Box, Card, CardContent, Typography } from '@mui/material';
 
 export default function CardProConForm({
   label = "Pro/Con",
-  content,
+  value,
   color = "white",
   onChange
 }) {
-
-  const [inputValue, setInputValue] = useState(content);
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (onChange) {
-        onChange(inputValue);
-      }
-      setInputValue("");
-    };
-
   return (
-    <Box sx={{ minWidth: 275, color:color }} paddingBottom="8px">
-      <Card variant="outlined" textAlign="left"sx={{ backgroundColor: color }}>
-        <CardContent >
-          <Typography gutterBottom variant="body1" sx={{ textAlign: 'left', color: 'text.secondary', fontSize: 16, fontFamily: 'Helvetica', paddingBottom: 2 }}>
+    <Box sx={{ minWidth: 275, pb: 1 }}>
+      <Card variant="outlined" sx={{ backgroundColor: color }}>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="body1"
+            sx={{
+              textAlign: 'left',
+              color: 'text.secondary',
+              fontSize: 16,
+              fontFamily: 'Helvetica',
+              pb: 2,
+            }}
+          >
             {label}
           </Typography>
-          <form onChange={handleSubmit}>
-            <TextField
-              required
-              fullWidth
-              multiline
-              minRows={4}
-              variant="standard"
-              value={content}
-              onChange={(e) => onChange?.(e.target.value)}
-              sx={{ mb: 2 }}
-              placeholder="Enter your feedback..."
-            />
 
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            </Box>
-          </form>
-
+          <TextField
+            required
+            fullWidth
+            multiline
+            minRows={4}
+            variant="standard"
+            value={value}
+            onChange={(e) => onChange?.(e.target.value)}
+            placeholder="Enter your feedback..."
+          />
         </CardContent>
       </Card>
     </Box>
