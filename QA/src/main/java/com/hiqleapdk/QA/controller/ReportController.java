@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reports") 
+@RequestMapping("/api/reports")
 public class ReportController {
 
     @Autowired
@@ -20,8 +20,6 @@ public class ReportController {
     public List<QualityReport> getAllReports() {
         return reportRepository.findAll();
     }
-
-    
 
     @GetMapping("/{id}")
     public ResponseEntity<QualityReport> getReportById(@PathVariable("id") Long id) {
@@ -36,9 +34,8 @@ public class ReportController {
         return reportRepository.save(report);
     }
     
-
     @PutMapping("/{id}")
-    public ResponseEntity<QualityReport> updateReport(@PathVariable Long id, @RequestBody QualityReport updatedReport) {
+    public ResponseEntity<QualityReport> updateReport(@PathVariable("id") Long id, @RequestBody QualityReport updatedReport) {
         return reportRepository.findById(id)
                 .map(report -> {
                     report.setJoyScore(updatedReport.getJoyScore());
@@ -53,7 +50,7 @@ public class ReportController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteReport(@PathVariable("id") Long id) {
         return reportRepository.findById(id)
                 .map(report -> {
                     reportRepository.delete(report);
@@ -63,7 +60,7 @@ public class ReportController {
     }
 
     @PutMapping("/{id}/viewed")
-    public ResponseEntity<QualityReport> markReportAsViewed(@PathVariable Long id) {
+    public ResponseEntity<QualityReport> markReportAsViewed(@PathVariable("id") Long id) {
         return reportRepository.findById(id).map(report -> {
             if (report.getManagerViewedTimestamp() == null) {
                  report.setManagerViewedTimestamp(LocalDateTime.now());
@@ -72,7 +69,6 @@ public class ReportController {
             }
             return ResponseEntity.ok(reportRepository.save(report));
         }).orElse(ResponseEntity.notFound().build());
-
     }
 
     @GetMapping("/consultant/{consultantId}")
@@ -80,3 +76,4 @@ public class ReportController {
         return reportRepository.findByConsultantIdOrderByCreatedDateAsc(consultantId);
     }
 }
+
