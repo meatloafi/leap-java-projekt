@@ -9,55 +9,99 @@ import axios from 'axios';
 
 import CardTallChart from '../components/CardTallChart';
 
-export default function ConsultantPage() {
-  const API_URL = 'http://localhost:8080/api';
+import { 
+  getAllCompanies, 
+  getAllManagers, 
+  getAllSellers, 
+  getAllConsultants, 
+  createConsultant,
+  deleteConsultant,
+  getReportsByConsultantId
+} from '../services/apiService';
 
+
+export default function ConsultantPage() {
   const [companies, setCompanies] = useState([]);
   const [managers, setManagers] = useState([]);
   const [sellers, setSellers] = useState([]);
   const [consultants, setConsultants] = useState([]);
   const [selectedConsultant, setSelectedConsultant] = useState(null);
+  const [consultantReports, setConsultantReports] = useState([]);
 
   useEffect(() => {
-    loadCompanies();
-    loadManagers();
-    loadSellers();
-    loadConsultants();
+    loadInitialData();
   }, []);
 
-  const loadCompanies = async () => {
+  const loadInitialData = async () => {
     try {
-      const response = await axios.get(`${API_URL}/companies`);
-      setCompanies(response.data);
+      const [companiesData, managersData, sellersData, consultantsData] = await Promise.all([
+        getAllCompanies(),
+        getAllManagers(),
+        getAllSellers(),
+        getAllConsultants()
+      ]);
+      setCompanies(companiesData.data);
+      setManagers(managersData.data);
+      setSellers(sellersData.data);
+      setConsultants(consultantsData.data);
     } catch (error) {
-      console.error('Error loading companies:', error);
-    }
-  };
-
-  const loadManagers = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/managers`);
-      setManagers(response.data);
-    } catch (error) {
-      console.error('Error loading managers:', error);
-    }
-  };
-
-  const loadSellers = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/sellers`);
-      setSellers(response.data);
-    } catch (error) {
-      console.error('Error loading sellers:', error);
+      console.error("Failed to load initial data", error);
     }
   };
 
   const loadConsultants = async () => {
     try {
-      const response = await axios.get(`${API_URL}/consultants`);
+      const response = await getAllConsultants();
       setConsultants(response.data);
     } catch (error) {
       console.error('Error loading consultants:', error);
+    }
+  };
+  
+  const loadConsultantReports = async (consultantId) => {
+    if (!consultantId) {
+      setConsultantReports([]);
+      return;
+    }
+    try {
+        const response = await getReportsByConsultantId(consultantId);
+        setConsultantReports(response.data);
+    } catch (error) {
+        console.error('Error loading consultant reports:', error);
+        setConsultantReports([]);
+    }
+  };
+
+  const handleConsultantSelect = (consultant) => {
+    setSelectedConsultant(consultant);
+    loadConsultantReports(consultant.id); 
+  };
+
+  const handleCreateConsultant = async (consultant) => {
+    const consultantPayload = {
+      ...consultant,
+      company: { id: consultant.company },
+      manager: { id: consultant.manager },
+      seller: { id: consultant.seller },
+    };
+    try {
+      await createConsultant(consultantPayload);
+      loadConsultants();
+    } catch (error) {
+      console.error("Failed to create consultant:", error);
+    }
+  };
+
+  const handleDeleteConsultant = async (consultant) => {
+    try {
+      await deleteConsultant(consultant.id);
+      loadConsultants();
+      if (selectedConsultant && selectedConsultant.id === consultant.id) {
+        setSelectedConsultant(null);
+        setConsultantReports([]);
+      }
+    } catch (error) {
+      console.error("Failed to delete consultant:", error);
     }
   };
 
@@ -70,6 +114,7 @@ export default function ConsultantPage() {
           <OutlinedCard
             label="Consultant Name"
             company={selectedConsultant ? selectedConsultant.name : "No Consultant Chosen"}
+            description={selectedConsultant ? selectedConsultant.email : null}
           />
         </Grid>
         <Grid item size="grow">
@@ -82,8 +127,8 @@ export default function ConsultantPage() {
         <Grid item size="grow">
           <OutlinedCard
             label="Overall Score"
-            company={selectedConsultant ? selectedConsultant.score || "8.1" : "8.1"}
-            description="-8% compared to last report"
+            company={consultantReports.length > 0 ? consultantReports[consultantReports.length - 1].overallScore.toFixed(1) : "N/A"}
+            description="Average of all scores"
           />
         </Grid>
       </Grid>
@@ -92,7 +137,7 @@ export default function ConsultantPage() {
       <Grid container spacing={1} paddingTop="8px">
         <Grid item size={6}>
 
-          <CardTallChart></CardTallChart>
+          <CardTallChart reports={consultantReports} />
         </Grid>
 
         <Grid item size={6}>
@@ -101,26 +146,17 @@ export default function ConsultantPage() {
             companies={companies}
             managers={managers}
             sellers={sellers}
-            onSubmit={async (consultant) => {
-              await axios.post(`${API_URL}/consultants`, {
-                ...consultant,
-                company: { id: consultant.company },
-                manager: { id: consultant.manager },
-                seller: { id: consultant.seller },
-              });
-              loadConsultants();
-            }}
+            onSubmit={handleCreateConsultant}
+            
           />
           <TableCardConsultant
             title="Consultants"
             data={consultants}
             selectedCompany={selectedConsultant}
-            onRowClick={(consultant) => setSelectedConsultant(consultant)}
+            onRowClick={handleConsultantSelect}
             buttonIcon={DeleteIcon}
-            onButtonClick={async (consultant) => {
-              await axios.delete(`${API_URL}/consultants/${consultant.id}`);
-              loadConsultants();
-            }}
+            onButtonClick={handleDeleteConsultant}
+
           />
           
         </Grid>

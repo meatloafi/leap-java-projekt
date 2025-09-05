@@ -1,3 +1,4 @@
+//Api services
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8080/api';
@@ -16,6 +17,7 @@ export const createReport = (reportData) => apiClient.post('/reports', reportDat
 export const updateReport = (id, reportData) => apiClient.put(`/reports/${id}`, reportData);
 export const deleteReport = (id) => apiClient.delete(`/reports/${id}`);
 export const markReportAsViewed = (id) => apiClient.put(`/reports/${id}/viewed`);
+export const getReportsByConsultantId = (id) => apiClient.get(`/reports/consultant/${id}`);
 
 
 // Konsulter

@@ -100,8 +100,8 @@ export default function ReportDetails() {
             <OutlinedCardTall content={report.feedback}></OutlinedCardTall>
         </Grid>
         <Grid item size={8} paddingTop="8px">
-            <CardProCon color="#00DECF" label="Strenghts" content={report.pros}></CardProCon>
-            <CardProCon color= "#FACAD9" label="Areas of Improvement" content={report.cons}></CardProCon>
+            <CardProCon color="#c4fefa" label="Strenghts" content={report.pros}></CardProCon>
+            <CardProCon color= "#ff9cb8" label="Areas of Improvement" content={report.cons}></CardProCon>
         </Grid>
       </Grid>
       {/* next row */}

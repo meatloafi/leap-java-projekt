@@ -47,7 +47,7 @@ export default function ReportListPage() {
             component={RouterLink}
             to="/report/new"
             variant="contained"
-            sx={{ mr: 1, backgroundColor: '#00DECE' }}
+            sx={{ mr: 1, backgroundColor: '#00a69a' }}
           >
             + Create Report
           </Button>
@@ -55,7 +55,7 @@ export default function ReportListPage() {
             component={RouterLink}
             to="/consultant/viewAll"
             variant="contained"
-            sx={{ mr: 1, backgroundColor: '#00DECE' }}
+            sx={{ mr: 1, backgroundColor: '#00a69a' }}
           >
             Consultants
           </Button>
@@ -63,7 +63,7 @@ export default function ReportListPage() {
             component={RouterLink}
             to="/company/viewAll"
             variant="contained"
-            sx={{ backgroundColor: '#00DECE' }}
+            sx={{ backgroundColor: '#00a69a' }}
           >
             Companies
           </Button>

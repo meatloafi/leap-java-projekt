@@ -15,8 +15,8 @@ export default function Header({
     logoSrc = null,
 }) {
   return (
-    <AppBar position="static" color="primary" elevation={1} paddingTop="8px">
-        <Toolbar>
+    <AppBar position="static" sx={{ backgroundColor: '#585958' }}  elevation={1} paddingTop="8px">
+        <Toolbar  Color="#e4e5e4">
             <IconButton edge="start" color="inherit" onClick={onBack} sx={{ mr: 2 }}>
                 <ArrowBackIcon />
             </IconButton>
@@ -25,7 +25,7 @@ export default function Header({
                     <img src={logoSrc} alt="Company Logo" style={{ height: 32 }} />
                 </Box>
             )}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1,  fontFamily: 'AlmarenaNeue, sans-serif'}}>
                 {pageTitle}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>

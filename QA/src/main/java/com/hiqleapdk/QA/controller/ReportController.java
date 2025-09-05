@@ -21,8 +21,10 @@ public class ReportController {
         return reportRepository.findAll();
     }
 
+    
+
     @GetMapping("/{id}")
-    public ResponseEntity<QualityReport> getReportById(@PathVariable Long id) {
+    public ResponseEntity<QualityReport> getReportById(@PathVariable("id") Long id) {
         return reportRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -71,5 +73,10 @@ public class ReportController {
             return ResponseEntity.ok(reportRepository.save(report));
         }).orElse(ResponseEntity.notFound().build());
 
+    }
+
+    @GetMapping("/consultant/{consultantId}")
+    public List<QualityReport> getReportsByConsultant(@PathVariable("consultantId") Long consultantId) {
+        return reportRepository.findByConsultantIdOrderByCreatedDateAsc(consultantId);
     }
 }
