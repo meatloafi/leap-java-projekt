@@ -7,6 +7,8 @@ import NewConsultant from '../components/NewConsultant';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
+import CardTallChart from '../components/CardTallChart';
+
 export default function ConsultantPage() {
   const API_URL = 'http://localhost:8080/api';
 
@@ -89,6 +91,11 @@ export default function ConsultantPage() {
       {/* next row */}
       <Grid container spacing={1} paddingTop="8px">
         <Grid item size={6}>
+
+          <CardTallChart></CardTallChart>
+        </Grid>
+
+        <Grid item size={6}>
           <NewConsultant
             label="Add New Consultant"
             companies={companies}
@@ -104,9 +111,6 @@ export default function ConsultantPage() {
               loadConsultants();
             }}
           />
-        </Grid>
-
-        <Grid item size={6}>
           <TableCardConsultant
             title="Consultants"
             data={consultants}
@@ -118,6 +122,7 @@ export default function ConsultantPage() {
               loadConsultants();
             }}
           />
+          
         </Grid>
       </Grid>
     </Box>

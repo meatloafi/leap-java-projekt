@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Button, Typography } from '@mui/material';
 import { getAllReports } from '../services/apiService';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function ReportListPage() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   useEffect(() => {
   const fetchReports = async () => {
@@ -84,6 +87,7 @@ export default function ReportListPage() {
                 <TableCell>Feedback</TableCell>
                 <TableCell>Overall Score</TableCell>
                 <TableCell>Created</TableCell>
+                <TableCell align="right">Seen by Manager</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -106,6 +110,9 @@ export default function ReportListPage() {
                       {report.createdDate
                         ? new Date(report.createdDate).toLocaleDateString()
                         : '-'}
+                    </TableCell>
+                    <TableCell align="right">
+                    {report.managerViewedTimestamp ? <CheckIcon color="success" /> : <ClearIcon color="error" />}
                     </TableCell>
                   </TableRow>
                 ))}

@@ -5,12 +5,12 @@ import com.hiqleapdk.QA.repository.QualityReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/reports") 
-@CrossOrigin(origins = "http://localhost:8080") 
 public class ReportController {
 
     @Autowired
@@ -58,5 +58,18 @@ public class ReportController {
                     return ResponseEntity.noContent().<Void>build();
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/viewed")
+    public ResponseEntity<QualityReport> markReportAsViewed(@PathVariable Long id) {
+        return reportRepository.findById(id).map(report -> {
+            if (report.getManagerViewedTimestamp() == null) {
+                 report.setManagerViewedTimestamp(LocalDateTime.now());
+            } else {
+                report.setManagerViewedTimestamp(null); 
+            }
+            return ResponseEntity.ok(reportRepository.save(report));
+        }).orElse(ResponseEntity.notFound().build());
+
     }
 }
